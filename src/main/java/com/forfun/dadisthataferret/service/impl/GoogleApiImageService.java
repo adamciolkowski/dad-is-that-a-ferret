@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
+
 import static org.springframework.web.util.UriComponentsBuilder.fromHttpUrl;
 
 @Service
@@ -19,6 +22,8 @@ public class GoogleApiImageService implements ImageService {
 
     private final RestTemplate restTemplate;
 
+    private final ConcurrentMap<String, String> imageUrlCache = new ConcurrentHashMap<>();
+
     @Autowired
     public GoogleApiImageService(@Value("${google.api.key}") String apiKey,
                                  @Value("${google.api.cx}") String cxKey,
@@ -30,6 +35,10 @@ public class GoogleApiImageService implements ImageService {
 
     @Override
     public String imageUrlFor(String animal) {
+        return imageUrlCache.computeIfAbsent(animal, this::imageUrlFromGoogleApi);
+    }
+
+    private String imageUrlFromGoogleApi(String animal) {
         String uri = getUriWithParams(animal);
         SearchResult result = restTemplate.getForObject(uri, SearchResult.class);
         return linkToFirstItem(result);
