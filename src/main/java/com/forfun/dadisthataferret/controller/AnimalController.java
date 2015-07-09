@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import static com.forfun.dadisthataferret.utils.LanguageUtils.articleFor;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @Controller
@@ -24,7 +25,7 @@ public class AnimalController {
     @RequestMapping(value = "/", method = GET)
     public String index(Model model) {
         String animal = animalNameService.getRandomName();
-        model.addAttribute("animalName", animal);
+        model.addAttribute("animalName", articleFor(animal) + " " + animal);
         model.addAttribute("imageUrl", imageService.imageUrlFor(animal));
         return "index";
     }
