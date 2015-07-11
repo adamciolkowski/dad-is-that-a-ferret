@@ -1,3 +1,14 @@
 raccoon
 elephant
 beaver
+badger
+polecat
+mink
+marten
+weasel
+muskrat
+rat
+otter
+mole
+aardwolf
+hare
