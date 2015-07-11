@@ -53,6 +53,7 @@ public class GoogleApiImageService implements ImageService {
                 .queryParam("q", animal)
                 .queryParam("searchType", "image")
                 .queryParam("num", 1)
+                .queryParam("fields", "items(link)")
                 .queryParam("cx", cxKey)
                 .queryParam("key", apiKey)
                 .toUriString();
