@@ -4,11 +4,9 @@ import com.forfun.dadisthataferret.model.SearchResult;
 import com.forfun.dadisthataferret.service.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestOperations;
-
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
 
 import static org.springframework.web.util.UriComponentsBuilder.fromHttpUrl;
 
@@ -22,8 +20,6 @@ public class GoogleApiImageService implements ImageService {
 
     private final RestOperations restOperations;
 
-    private final ConcurrentMap<String, String> imageUrlCache = new ConcurrentHashMap<>();
-
     @Autowired
     public GoogleApiImageService(@Value("${google.api.key}") String apiKey,
                                  @Value("${google.api.cx}") String cxKey,
@@ -33,12 +29,9 @@ public class GoogleApiImageService implements ImageService {
         this.restOperations = restOperations;
     }
 
+    @Cacheable("imageUrls")
     @Override
     public String imageUrlFor(String animal) {
-        return imageUrlCache.computeIfAbsent(animal, this::imageUrlFromGoogleApi);
-    }
-
-    private String imageUrlFromGoogleApi(String animal) {
         String uri = getUriWithParams(animal);
         SearchResult result = restOperations.getForObject(uri, SearchResult.class);
         return linkToFirstItem(result);
