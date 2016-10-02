@@ -1,4 +1,4 @@
-package com.forfun.dadisthataferret.service.impl;
+package com.forfun.dadisthataferret.repository.impl;
 
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate;
 
 @Configuration
 @EnableCaching
-public class ServiceConfig {
+public class RepositoryConfig {
 
     @Bean
     public RestOperations restTemplate() {

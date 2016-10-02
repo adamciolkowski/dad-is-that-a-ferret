@@ -1,4 +1,4 @@
-package com.forfun.dadisthataferret.service.impl;
+package com.forfun.dadisthataferret.repository.impl;
 
 import org.junit.Test;
 import org.springframework.core.io.ClassPathResource;
@@ -8,12 +8,12 @@ import java.util.List;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 
-public class ResourceAnimalNameServiceTest {
+public class ResourceAnimalNameRepositoryTest {
 
     @Test
     public void shouldLoadAnimalNames() throws Exception {
         Resource resource = new ClassPathResource("/animals.txt");
-        List<String> animalNames = ResourceAnimalNameService.loadAnimalNamesFrom(resource);
+        List<String> animalNames = ResourceAnimalNameRepository.loadAnimalNamesFrom(resource);
 
         assertThat(animalNames).containsOnly("raccoon", "elephant", "beaver");
     }

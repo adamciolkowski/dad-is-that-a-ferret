@@ -1,7 +1,7 @@
-package com.forfun.dadisthataferret.service.impl;
+package com.forfun.dadisthataferret.repository.impl;
 
 import com.forfun.dadisthataferret.model.SearchResult;
-import com.forfun.dadisthataferret.service.ImageService;
+import com.forfun.dadisthataferret.repository.ImageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
@@ -11,7 +11,7 @@ import org.springframework.web.client.RestOperations;
 import static org.springframework.web.util.UriComponentsBuilder.fromHttpUrl;
 
 @Service
-public class GoogleApiImageService implements ImageService {
+public class GoogleApiImageRepository implements ImageRepository {
 
     private static final String BASE_URL = "https://www.googleapis.com/customsearch/v1";
 
@@ -21,9 +21,9 @@ public class GoogleApiImageService implements ImageService {
     private final RestOperations restOperations;
 
     @Autowired
-    public GoogleApiImageService(@Value("${google.api.key}") String apiKey,
-                                 @Value("${google.api.cx}") String cxKey,
-                                 RestOperations restOperations) {
+    public GoogleApiImageRepository(@Value("${google.api.key}") String apiKey,
+                                    @Value("${google.api.cx}") String cxKey,
+                                    RestOperations restOperations) {
         this.apiKey = apiKey;
         this.cxKey = cxKey;
         this.restOperations = restOperations;

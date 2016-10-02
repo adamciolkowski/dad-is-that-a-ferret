@@ -1,6 +1,6 @@
-package com.forfun.dadisthataferret.service.impl;
+package com.forfun.dadisthataferret.repository.impl;
 
-import com.forfun.dadisthataferret.service.AnimalNameService;
+import com.forfun.dadisthataferret.repository.AnimalNameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
@@ -14,12 +14,12 @@ import java.util.List;
 import static com.forfun.dadisthataferret.utils.Utils.randomElement;
 
 @Service
-public class ResourceAnimalNameService implements AnimalNameService {
+public class ResourceAnimalNameRepository implements AnimalNameRepository {
 
     private final List<String> animals;
 
     @Autowired
-    public ResourceAnimalNameService(Resource resource) throws IOException {
+    public ResourceAnimalNameRepository(Resource resource) throws IOException {
         this.animals = loadAnimalNamesFrom(resource);
     }
 
