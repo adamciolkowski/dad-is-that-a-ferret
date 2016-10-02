@@ -1,7 +1,7 @@
 package com.forfun.dadisthataferret.controller;
 
-import com.forfun.dadisthataferret.service.AnimalNameService;
-import com.forfun.dadisthataferret.service.ImageService;
+import com.forfun.dadisthataferret.model.Animal;
+import com.forfun.dadisthataferret.service.AnimalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,20 +13,19 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 @Controller
 public class AnimalController {
 
-    private final AnimalNameService animalNameService;
-    private final ImageService imageService;
+    private final AnimalService animalService;
 
     @Autowired
-    public AnimalController(AnimalNameService animalNameService, ImageService imageService) {
-        this.animalNameService = animalNameService;
-        this.imageService = imageService;
+    public AnimalController(AnimalService animalService) {
+        this.animalService = animalService;
     }
 
     @RequestMapping(value = "/", method = GET)
     public String index(Model model) {
-        String animal = animalNameService.getRandomName();
-        model.addAttribute("animalName", articleFor(animal) + " " + animal);
-        model.addAttribute("imageUrl", imageService.imageUrlFor(animal));
+        Animal animal = animalService.getRandomAnimal();
+        String name = animal.getName();
+        model.addAttribute("animalName", articleFor(name) + " " + name);
+        model.addAttribute("imageUrl", animal.getImageUrl());
         return "index";
     }
 }
