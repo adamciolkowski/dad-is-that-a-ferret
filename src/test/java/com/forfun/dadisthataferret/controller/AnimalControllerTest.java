@@ -33,7 +33,8 @@ public class AnimalControllerTest {
         mockMvc.perform(get("/"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(model().attribute("animalName", "a " + animalName))
+                .andExpect(model().attribute("article", "a"))
+                .andExpect(model().attribute("animalName", animalName))
                 .andExpect(model().attribute("imageUrl", imageUrl));
     }
 }

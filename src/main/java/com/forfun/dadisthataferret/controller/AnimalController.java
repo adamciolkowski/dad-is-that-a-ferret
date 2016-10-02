@@ -24,7 +24,8 @@ public class AnimalController {
     public String index(Model model) {
         Animal animal = animalService.getRandomAnimal();
         String name = animal.getName();
-        model.addAttribute("animalName", articleFor(name) + " " + name);
+        model.addAttribute("article", articleFor(name));
+        model.addAttribute("animalName", name);
         model.addAttribute("imageUrl", animal.getImageUrl());
         return "index";
     }
